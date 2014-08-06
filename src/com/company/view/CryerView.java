@@ -11,8 +11,14 @@ import java.util.Arrays;
  * Time: 16:37
  * To change this template use File | Settings | File Templates.
  */
-public class CryerView implements Showable, Poolable {
+public class CryerView implements Showable, PoolableResource {
     private Cryer cryer = null;
+
+
+    public CryerView(){
+        this.cryer = null;
+    }
+
     public CryerView(Cryer cryer){
         this.cryer = cryer;
     }
@@ -22,22 +28,15 @@ public class CryerView implements Showable, Poolable {
         cryer.cry();
     }
 
+    public CryerView load(Cryer cryer) {
+        this.cryer = cryer;
+        return this;
+    }
+
 
     @Override
-    public void refresh() {
+    public void release() {
         cryer = null;
     }
-
-    public void setup(Cryer cryer) {
-        this.cryer = cryer;
-    }
-
-//    @Override
-//    public void setup(Object obj) {
-//        if (Arrays.asList(obj.getClass().getInterfaces()).contains(Cryer.class)){
-//            this.cryer = (Cryer)obj;
-//        }
-//    }
-
 
 }
